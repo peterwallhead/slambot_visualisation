@@ -1,0 +1,194 @@
+<?xml version="1.0"?>
+<robot name="slambot">
+
+  <material name="blue">
+    <color rgba="0 0 0.8 1"/>
+  </material>
+  <material name="black">
+    <color rgba="0 0 0 1"/>
+  </material>
+  <material name="white">
+    <color rgba="1 1 1 1"/>
+  </material>
+  <material name="gray_transparent">
+      <color rgba="0.7 0.7 0.7 0.9" />
+  </material>
+  <material name="yellow">
+      <color rgba="1 0.85 0 1" />
+  </material>
+
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <cylinder length="0.003" radius="0.14"/>
+      </geometry>
+      <origin xyz="0 0 0.0625" rpy="0 0 0" />
+      <material name="gray_transparent"/>
+    </visual>
+  </link>
+  <link name="power_deck">
+    <visual>
+      <geometry>
+        <cylinder length="0.003" radius="0.14"/>
+      </geometry>
+      <origin xyz="0 0 0.115" rpy="0 0 0" />
+      <material name="gray_transparent"/>
+    </visual>
+  </link>
+  <link name="control_deck">
+    <visual>
+      <geometry>
+        <cylinder length="0.003" radius="0.14"/>
+      </geometry>
+      <origin xyz="0 0 0.165" rpy="0 0 0" />
+      <material name="gray_transparent"/>
+    </visual>
+  </link>
+  <link name="lidar_deck">
+    <visual>
+      <geometry>
+        <cylinder length="0.003" radius="0.14"/>
+      </geometry>
+      <origin xyz="0 0 0.265" rpy="0 0 0" />
+      <material name="gray_transparent"/>
+    </visual>
+    <visual>
+      <geometry>
+        <cylinder radius="0.025" length="0.04" />
+      </geometry>
+      <origin xyz="0 0 0.2865" rpy="0 0 0" />
+      <material name="black" />
+    </visual>
+    <visual>
+      <geometry>
+        <box size="0.055 0.055 0.02" />
+      </geometry>
+      <origin xyz="0 0 0.2765" rpy="0 0 0" />
+      <material name="black" />
+    </visual>
+  </link>
+  <link name="sensor_mast">
+    <visual>
+      <geometry>
+        <box size="0.02 0.02 1.0"/>
+      </geometry>
+      <origin xyz="-0.10 0 0.615" rpy="0 0 0" />
+      <material name="black"/>
+    </visual>
+  </link>
+  <link name="stereo_camera">
+    <visual>
+      <geometry>
+        <box size="0.01 0.11 0.05"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <material name="yellow"/>
+    </visual>
+    <visual>
+      <geometry>
+        <cylinder radius="0.0075" length="0.01"/>
+      </geometry>
+      <origin xyz="0.01 0.033 0" rpy="0 1.5708 0"/>
+      <material name="black"/>
+    </visual>
+    <visual>
+      <geometry>
+        <cylinder radius="0.0075" length="0.01"/>
+      </geometry>
+      <origin xyz="0.01 -0.033 0" rpy="0 1.5708 0"/>
+      <material name="black"/>
+    </visual>
+  </link>
+
+  <link name="left_wheel_link"> 
+      <visual>
+          <geometry>
+              <cylinder radius="0.03" length="0.008" />
+          </geometry>
+          <origin xyz="0 0 0" rpy="1.57079632679 0 0" />
+          <material name="white" />
+      </visual>
+  </link>
+  <link name="right_wheel_link"> 
+      <visual>
+          <geometry>
+              <cylinder radius="0.03" length="0.008" />
+          </geometry>
+          <origin xyz="0 0 0" rpy="1.57079632679 0 0" />
+          <material name="white" />
+      </visual>
+  </link>
+
+  <!-- Note British English spelling -->
+  <link name="front_castor_wheel_link"> 
+      <visual>
+          <geometry>
+              <cylinder radius="0.015" length="0.013" />
+          </geometry>
+          <origin xyz="0 0 0" rpy="1.57079632679 0 0" />
+          <material name="black" />
+      </visual>
+  </link>
+  <link name="rear_castor_wheel_link"> 
+      <visual>
+          <geometry>
+              <cylinder radius="0.015" length="0.013" />
+          </geometry>
+          <origin xyz="0 0 0" rpy="1.57079632679 0 0" />
+          <material name="black" />
+      </visual>
+  </link>
+
+  <joint name="base_power_deck_joint" type="fixed">
+    <parent link="base_link" />
+    <child link="power_deck" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </joint>
+  <joint name="base_control_deck_joint" type="fixed">
+    <parent link="base_link" />
+    <child link="control_deck" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </joint>
+  <joint name="base_lidar_deck_joint" type="fixed">
+    <parent link="base_link" />
+    <child link="lidar_deck" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </joint>
+  <joint name="base_sensor_mast_joint" type="fixed">
+    <parent link="base_link" />
+    <child link="sensor_mast" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </joint>
+  <joint name="base_to_stereo_camera" type="fixed">
+    <parent link="base_link"/>
+    <child link="stereo_camera"/>
+    <origin xyz="-0.06 0 1.09" rpy="0 0 0"/>
+  </joint>
+
+  <joint name="base_front_castor_wheel_joint" type="fixed">
+        <parent link="base_link" />
+        <child link="front_castor_wheel_link" />
+        <origin xyz="0.09 0 0.015" rpy="0 0 0" />
+        <axis xyz="0 1 0" />
+    </joint>
+  <joint name="base_rear_castor_wheel_joint" type="fixed">
+        <parent link="base_link" />
+        <child link="rear_castor_wheel_link" />
+        <origin xyz="-0.09 0 0.015" rpy="0 0 0" />
+        <axis xyz="0 1 0" />
+    </joint>
+
+  <joint name="base_left_wheel_joint" type="continuous">
+        <parent link="base_link" />
+        <child link="left_wheel_link" />
+        <origin xyz="0 0.136 0.03" rpy="0 0 0" />
+        <axis xyz="0 1 0" />
+    </joint>
+  <joint name="base_right_wheel_joint" type="continuous">
+        <parent link="base_link" />
+        <child link="right_wheel_link" />
+        <origin xyz="0 -0.136 0.03" rpy="0 0 0" />
+        <axis xyz="0 1 0" />
+    </joint>
+</robot>
+
